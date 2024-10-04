@@ -50,7 +50,7 @@ def create_pie_plot(values, labels, title, size=(5, 4)):
 # function to group data based on temperature
 def group_by_temp(data, temp_col, temp_max):
     temp_bins = pd.cut(data[temp_col], bins=[0, 0.2, 0.4, 0.6, 0.8, 1.0])
-    temp_group = data.groupby(temp_bins)['cnt'].sum()
+    temp_group = data.groupby(temp_bins, observed=False)['cnt'].sum()
     # change the temp column to actual range
     temp_group.index = temp_group.index.map(lambda x: f"{int(x.left * temp_max)}-{int(x.right * temp_max)}")
     return temp_group
